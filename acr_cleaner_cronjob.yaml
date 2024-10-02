@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: acr-cleaner-cronjob
+spec:
+  schedule: "0 0 * * *"  # Rodar à meia-noite todos os dias
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: acr-cleaner
+            image: csstagacr.azurecr.io/acr_cleaner_image:latest  # Usar a imagem correta do ACR
+            env:
+            - name: ACR_NAMES
+              value: "CSStagAcr"  # Nome do ACR a ser limpo, para multiplos ACR separar por vírgula
+            - name: TAGS_TO_KEEP
+              value: "3"  # Quantidade de tags para manter
+            - name: SP_APP_ID
+              value: "<SP_APP_ID>"  # appId gerado
+            - name: SP_PASSWORD
+              value: "<SP_PASSWORD>"  # Senha gerada (password)
+            - name: SP_TENANT_ID
+              value: "<SP_TENANT_ID>"  # Tenant ID gerado
+          restartPolicy: Never
+      backoffLimit: 1
