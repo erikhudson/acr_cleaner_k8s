@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: acr-cleaner
-            image: csstagacr.azurecr.io/acr_cleaner_image:latest  # Usar a imagem correta do ACR
+            image: erikhudson/acr_cleaner_image:latest  # Usar a imagem correta do ACR
             env:
             - name: ACR_NAMES
               value: "CSStagAcr"  # Nome do ACR a ser limpo, para multiplos ACR separar por vírgula
